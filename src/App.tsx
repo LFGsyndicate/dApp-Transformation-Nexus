@@ -1,3 +1,4 @@
+
 import { ThemeProvider } from "./hooks/useTheme";
 import { LanguageProvider } from "./hooks/useLanguage";
 import { Toaster } from "./components/ui/toaster";
@@ -11,6 +12,7 @@ import UseCasesPage from "./pages/UseCasesPage";
 import ConclusionsPage from "./pages/ConclusionsPage";
 import AboutPage from "./pages/AboutPage";
 import TechnologyDetailPage from "./pages/TechnologyDetailPage";
+import ResearchPapersPage from "./pages/ResearchPapersPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +30,7 @@ const App = () => (
               <Route path="/technologies" element={<TechnologiesPage />} />
               <Route path="/technologies/:techId" element={<TechnologyDetailPage />} />
               <Route path="/use-cases" element={<UseCasesPage />} />
+              <Route path="/research-papers" element={<ResearchPapersPage />} />
               <Route path="/conclusions" element={<ConclusionsPage />} />
               <Route path="/about" element={<AboutPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

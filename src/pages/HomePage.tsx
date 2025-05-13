@@ -9,6 +9,7 @@ import { useLanguage } from "../hooks/useLanguage";
 import { useTranslatedUseCases } from "../data/useCases";
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
+import { ChevronRight } from "lucide-react";
 
 const HomePage = () => {
   const { t } = useLanguage();
@@ -41,8 +42,62 @@ const HomePage = () => {
           </div>
         </section>
 
+        {/* Research Papers Section */}
+        <section className="py-12 bg-accent">
+          <div className="container-content">
+            <h2 className="text-3xl font-bold text-center mb-8">
+              {t("Research Papers", "Исследовательские работы")}
+            </h2>
+            <div className="grid gap-8 md:grid-cols-2">
+              <div className="bg-card shadow-md rounded-lg p-6 flex flex-col">
+                <h3 className="text-xl font-semibold mb-3">
+                  {t("Decentralization & Intelligence", "Децентрализация и интеллект")}
+                </h3>
+                <p className="text-muted-foreground mb-6 flex-grow">
+                  {t(
+                    "A comprehensive analysis of blockchain, smart contracts, crypto-utility, and DAOs in modern business and their synergy with AI.",
+                    "Комплексный анализ блокчейна, смарт-контрактов, крипто-утилит и DAO в современном бизнесе и их синергия с ИИ."
+                  )}
+                </p>
+                <Link 
+                  to="/research-papers?tab=paper1" 
+                  className="text-primary font-medium hover:underline inline-flex items-center"
+                >
+                  {t("Read Paper", "Читать статью")}
+                  <ChevronRight className="h-4 w-4 ml-1" />
+                </Link>
+              </div>
+              <div className="bg-card shadow-md rounded-lg p-6 flex flex-col">
+                <h3 className="text-xl font-semibold mb-3">
+                  {t("Web3 in Action", "Web3 в действии")}
+                </h3>
+                <p className="text-muted-foreground mb-6 flex-grow">
+                  {t(
+                    "A comprehensive catalog of decentralized solutions and their transformative applications across various industries.",
+                    "Комплексный каталог децентрализованных решений и их трансформационных приложений в различных отраслях."
+                  )}
+                </p>
+                <Link 
+                  to="/research-papers?tab=paper2" 
+                  className="text-primary font-medium hover:underline inline-flex items-center"
+                >
+                  {t("Read Paper", "Читать статью")}
+                  <ChevronRight className="h-4 w-4 ml-1" />
+                </Link>
+              </div>
+            </div>
+            <div className="mt-8 text-center">
+              <Button variant="secondary" asChild size="lg">
+                <Link to="/research-papers">
+                  {t("View All Research Papers", "Просмотреть все исследования")}
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
         {/* Technologies Section */}
-        <section className="py-12 bg-muted">
+        <section className="py-12">
           <div className="container-content">
             <h2 className="text-3xl font-bold text-center mb-8">
               {t("Core Technologies", "Ключевые технологии")}

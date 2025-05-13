@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { useLanguage } from "../hooks/useLanguage";
@@ -56,10 +57,10 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Third Section - Use Cases */}
+          {/* Third Section - Research & Use Cases */}
           <div>
             <h4 className="font-semibold text-lg mb-4">
-              {t("Use Cases", "Примеры использования")}
+              {t("Research & Use Cases", "Исследования и примеры")}
             </h4>
             <ul className="text-sm space-y-2">
               <li>
@@ -68,18 +69,18 @@ export const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/use-cases?industry=finance" className="hover:underline">
-                  {t("Finance", "Финансы")}
+                <Link to="/research-papers?tab=paper1" className="hover:underline">
+                  {t("Decentralization & Intelligence", "Децентрализация и интеллект")}
                 </Link>
               </li>
               <li>
-                <Link to="/use-cases?industry=supply-chain" className="hover:underline">
-                  {t("Supply Chain", "Цепочка поставок")}
+                <Link to="/research-papers?tab=paper2" className="hover:underline">
+                  {t("Web3 in Action", "Web3 в действии")}
                 </Link>
               </li>
               <li>
-                <Link to="/use-cases?industry=healthcare" className="hover:underline">
-                  {t("Healthcare", "Здравоохранение")}
+                <Link to="/research-papers" className="hover:underline">
+                  {t("All Research Papers", "Все исследования")}
                 </Link>
               </li>
             </ul>

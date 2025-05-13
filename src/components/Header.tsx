@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
@@ -27,6 +28,9 @@ export function Header() {
             </Link>
             <Link to="/use-cases" className="text-sm font-medium transition-colors hover:text-foreground/80">
               {t("Use Cases", "Примеры использования")}
+            </Link>
+            <Link to="/research-papers" className="text-sm font-medium transition-colors hover:text-foreground/80">
+              {t("Research Papers", "Исследования")}
             </Link>
             <Link to="/conclusions" className="text-sm font-medium transition-colors hover:text-foreground/80">
               {t("Conclusions", "Выводы")}
@@ -65,6 +69,9 @@ export function Header() {
             </Link>
             <Link to="/use-cases" className="text-sm font-medium transition-colors hover:text-foreground/80">
               {t("Use Cases", "Примеры использования")}
+            </Link>
+            <Link to="/research-papers" className="text-sm font-medium transition-colors hover:text-foreground/80">
+              {t("Research Papers", "Исследования")}
             </Link>
             <Link to="/conclusions" className="text-sm font-medium transition-colors hover:text-foreground/80">
               {t("Conclusions", "Выводы")}
