@@ -1,19 +1,25 @@
+
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import { useLanguage } from "../hooks/useLanguage";
 
-interface UseCaseCardProps {
+type UseCase = {
+  id: string;
   title: string;
   description: string;
   industry: string;
   technology: string;
-  link: string;
+};
+
+interface UseCaseCardProps {
+  useCase: UseCase;
 }
 
-const UseCaseCard: React.FC<UseCaseCardProps> = ({ title, description, industry, technology, link }) => {
+const UseCaseCard: React.FC<UseCaseCardProps> = ({ useCase }) => {
   const { t } = useLanguage();
-
+  const { title, description, industry, technology } = useCase;
+  
   return (
     <Card className="h-full">
       <CardHeader>
@@ -27,10 +33,8 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ title, description, industry,
         </div>
       </CardContent>
       <CardFooter className="justify-between">
-        <Button asChild>
-          <a href={link} target="_blank" rel="noopener noreferrer">
-            {t("Learn More", "Узнать больше")}
-          </a>
+        <Button variant="secondary">
+          {t("Learn More", "Узнать больше")}
         </Button>
       </CardFooter>
     </Card>

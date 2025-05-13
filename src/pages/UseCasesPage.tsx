@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
@@ -5,7 +6,6 @@ import { UseCaseCard } from "../components/UseCaseCard";
 import { UseCaseFilters } from "../components/UseCaseFilters";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTranslatedUseCases, getUniqueIndustries, getUniqueTechnologies } from "../data/useCases";
-import { Input } from "../components/ui/input";
 
 const UseCasesPage = () => {
   const { t } = useLanguage();
@@ -42,21 +42,17 @@ const UseCasesPage = () => {
 
     const industryMatch =
       selectedIndustries.length === 0 ||
-      selectedIndustries.some((industry) =>
-        useCase.industries.includes(industry)
-      );
+      selectedIndustries.includes(useCase.industry);
 
     const technologyMatch =
       selectedTechnologies.length === 0 ||
-      selectedTechnologies.some((technology) =>
-        useCase.technologies.includes(technology)
-      );
+      selectedTechnologies.includes(useCase.technology);
 
     return searchMatch && industryMatch && technologyMatch;
   });
 
-  const industries = getUniqueIndustries(useCases, t);
-  const technologies = getUniqueTechnologies(useCases, t);
+  const industries = getUniqueIndustries(useCases);
+  const technologies = getUniqueTechnologies(useCases);
 
   return (
     <div className="flex min-h-screen flex-col">

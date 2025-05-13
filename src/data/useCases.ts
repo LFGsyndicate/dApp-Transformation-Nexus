@@ -142,7 +142,7 @@ const useCases: UseCase[] = [
 ];
 
 export const useTranslatedUseCases = () => {
-  const { t, currentLanguage } = useLanguage();
+  const { currentLanguage } = useLanguage();
 
   const translatedUseCases = useCases.map((useCase) => ({
     ...useCase,
@@ -153,12 +153,12 @@ export const useTranslatedUseCases = () => {
   return translatedUseCases;
 };
 
-export const getUniqueIndustries = () => {
+export const getUniqueIndustries = (useCases: any[]) => {
   const industries = [...new Set(useCases.map((useCase) => useCase.industry))];
   return industries;
 };
 
-export const getUniqueTechnologies = () => {
+export const getUniqueTechnologies = (useCases: any[]) => {
   const technologies = [...new Set(useCases.map((useCase) => useCase.technology))];
   return technologies;
 };
