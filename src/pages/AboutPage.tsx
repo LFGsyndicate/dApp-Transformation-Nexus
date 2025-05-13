@@ -1,8 +1,9 @@
 
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { useLanguage } from "@/hooks/useLanguage";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+import { useLanguage } from "../hooks/useLanguage";
+import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
 
 const AboutPage = () => {

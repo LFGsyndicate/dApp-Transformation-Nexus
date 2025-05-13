@@ -1,11 +1,11 @@
-
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { CallToAction } from "@/components/CallToAction";
-import { useLanguage } from "@/hooks/useLanguage";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+import { CallToAction } from "../components/CallToAction";
+import { useLanguage } from "../hooks/useLanguage";
+import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "../components/ui/card";
 
 const ConclusionsPage = () => {
   const { t } = useLanguage();
@@ -227,7 +227,7 @@ const ConclusionsPage = () => {
                       <p>
                         {t(
                           "Cross-chain protocols for interoperability and asset transfers",
-                          "Протоколы между цепочками для обеспечения совместимости и передачи активов"
+                          "Протоколы между цепочками для обеспечения совместимост�� и передачи активов"
                         )}
                       </p>
                     </li>

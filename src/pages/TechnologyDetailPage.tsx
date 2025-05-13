@@ -1,11 +1,10 @@
-
 import { useParams, Link } from "react-router-dom";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { CallToAction } from "@/components/CallToAction";
-import { useLanguage } from "@/hooks/useLanguage";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+import { CallToAction } from "../components/CallToAction";
+import { useLanguage } from "../hooks/useLanguage";
+import { Button } from "../components/ui/button";
+import { Card, CardContent } from "../components/ui/card";
 
 const TechnologyDetailPage = () => {
   const { techId } = useParams<{ techId: string }>();
@@ -34,7 +33,7 @@ const TechnologyDetailPage = () => {
               title: t("Consensus Mechanisms", "Механизмы консенсуса"),
               content: t(
                 "Consensus mechanisms are the protocols that ensure all nodes in a blockchain network agree on the current state of the ledger. Popular mechanisms include Proof of Work (used by Bitcoin), which requires participants to solve complex puzzles; Proof of Stake (used by Ethereum 2.0), which selects validators based on their cryptocurrency holdings; and Proof of Authority, often used in permissioned networks where validators are pre-approved entities.",
-                "Механизмы консенсуса — это протоколы, обеспечивающие согласие всех узлов в сети блокчейн относительно текущего состояния реестра. Популярные механизмы включают Proof of Work (используемый Bitcoin), который требует от участников решения сложных головоломок; Proof of Stake (используемый Ethereum 2.0), который выбирает валидаторов на основе их криптовалютных запасов; и Proof of Authority, часто используемый в сетях с разрешениями, где валидаторы являются предварительно одобренными организациями."
+                "Механизмы консенсуса — это протоколы, обеспечивающие согласие всех узлов в сети блокчейн относительно текущего состояния реестра. Популярные механизмы включают Proof of Work (используемый Bitcoin), который требует от участников решения сложных головоломок; Proof of Stake (используемый Ethereum 2.0), который выбирает валидаторов на основе их криптовалютных запасов; и Proof of Authority, часто используемый в сетях с разрешениями, где вали��аторы являются предварительно одобренными организациями."
               )
             },
             {
@@ -67,7 +66,7 @@ const TechnologyDetailPage = () => {
               title: t("Key Capabilities", "Ключевые возможности"),
               content: t(
                 "Smart contracts offer automation of processes, reducing the need for manual oversight; reduction of intermediaries and counterparty risk by codifying terms and automating execution; significant cost savings through efficiency gains and minimized disputes; and enhanced transparency and auditability, as their code and execution history are transparent and immutable on the blockchain.",
-                "Смарт-контракты предлагают автоматизацию процессов, уменьшая необходимость в ручном надзоре; сокращение посредников и риска контрагента путем кодификации условий и автоматизации исполнения; значительную экономию затрат за счет повышения эффективности и минимизации споров; и улучшенную прозрачность и аудируемость, поскольку их код и история выполнения прозрачны и неизменны в блокчейне."
+                "Смарт-контракты предлагают автоматизацию процессов, уменьшая необходи��ость в ручном надзоре; сокращение посредников и риска контрагента путем кодификации условий и автоматизации исполнения; значительную экономию затрат за счет повышения эффективности и минимизации споров; и улучшенную прозрачность и аудируемость, поскольку их код и история выполнения прозрачны и неизменны в блокчейне."
               )
             },
             {
@@ -126,7 +125,7 @@ const TechnologyDetailPage = () => {
               title: t("Anatomy of a DAO", "Анатомия ДАО"),
               content: t(
                 "DAOs are essentially organizations where rules and governance mechanisms are embedded in smart contracts on a blockchain. Key components typically include smart contracts forming the backbone, governance tokens representing membership and voting rights, a treasury of collective funds, and a community of members who contribute and participate in decision-making.",
-                "ДАО по сути являются организациями, в которых правила и механизмы управления встроены в смарт-контракты в блокчейне. Ключевые компоненты обычно включают смарт-контракты, формирующие основу, токены управления, представляющие членство и право голоса, казначейство коллективных средств и сообщество членов, которые вносят вклад и участвуют в принятии решений."
+                "ДАО по сути являются организациями, в которых правила и механизмы управления встроены в смарт-контракты в блокчейне. Ключевые компоненты обычно включают смарт-контракты, формирующие основу, токены управления, представляющие членство и право голоса, казначейство к��ллективных средств и сообщество членов, которые вносят вклад и участвуют в принятии решений."
               )
             },
             {
@@ -173,7 +172,7 @@ const TechnologyDetailPage = () => {
               title: t("Blockchain Enhancing AI", "Блокчейн улучшает ИИ"),
               content: t(
                 "Blockchain technology addresses key challenges in AI development through immutable data trails that enhance trust in AI training data; decentralized AI marketplaces that democratize access to AI tools and models; auditable decision logs for AI actions stored on a transparent blockchain; secure, private data sharing for collaborative AI development; and tokenization of AI assets that creates new economic models around AI development and deployment.",
-                "Технология блокчейн решает ключевые проблемы в разработке ИИ через неизменяемые следы данных, повышающие доверие к обучающим данным ИИ; децентрализованные рынки ИИ, демократизирующие доступ к инструментам и моделям ИИ; проверяемые журналы решений для действий ИИ, хранящиеся в прозрачном блокчейне; безопасный, приватный обмен данными для совместной разработки ИИ; и токенизацию активов ИИ, создающую новые экономические модели вокруг разработки и внедрения ИИ."
+                "Технология блокчейн решает ключевые проблемы в разработке ИИ через неизменяемые следы данных, повышающие доверие к обучающим данным ИИ; децентрализованные рынки ИИ, демократизирующие доступ к инструментам и моделям ИИ; проверяемые журналы решений для действий ИИ, х��анящиеся в прозрачном блокчейне; безопасный, приватный обмен данными для совместной разработки ИИ; и токенизацию активов ИИ, создающую новые экономические модели вокруг разработки и внедрения ИИ."
               )
             }
           ],
