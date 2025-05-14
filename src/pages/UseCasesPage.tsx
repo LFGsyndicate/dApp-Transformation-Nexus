@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
@@ -19,6 +18,17 @@ import { Search } from "lucide-react";
 import { Input } from "../components/ui/input";
 
 const ITEMS_PER_PAGE = 12;
+
+// Define a type that matches what useTranslatedUseCases returns
+type TranslatedUseCase = {
+  id: string;
+  title: string;
+  description: string;
+  industry: string;
+  technology: string;
+  source?: string;
+  link?: string;
+};
 
 const UseCasesPage = () => {
   const { t } = useLanguage();
@@ -73,8 +83,9 @@ const UseCasesPage = () => {
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedUseCases = filteredUseCases.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-  const industries = getUniqueIndustries(useCases);
-  const technologies = getUniqueTechnologies(useCases);
+  // Here we're using the translated use cases directly, so we need to get industries and technologies from them
+  const industries = Array.from(new Set(useCases.map(useCase => useCase.industry))).sort();
+  const technologies = Array.from(new Set(useCases.map(useCase => useCase.technology))).sort();
 
   // Generate page numbers for pagination
   const getPageNumbers = () => {

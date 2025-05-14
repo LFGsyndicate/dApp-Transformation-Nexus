@@ -6,6 +6,7 @@ import { useLanguage } from "../hooks/useLanguage";
 import { ExternalLink, Info } from "lucide-react";
 import { AspectRatio } from "./ui/aspect-ratio";
 
+// Update the type to match what useTranslatedUseCases returns
 type UseCase = {
   id: string;
   title: string;
