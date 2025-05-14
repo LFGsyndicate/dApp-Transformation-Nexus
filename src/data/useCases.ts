@@ -1,3 +1,4 @@
+
 import { useLanguage } from "../hooks/useLanguage";
 
 type UseCase = {
@@ -759,3 +760,136 @@ const useCases: UseCase[] = [
   },
   {
     id: "45",
+    title: {
+      en: "Gitcoin Quadratic Funding",
+      ru: "Квадратичное финансирование Gitcoin",
+    },
+    industry: "Finance",
+    technology: "DAO",
+    description: {
+      en: "A funding mechanism that uses quadratic voting principles to determine the allocation of matching funds, emphasizing the number of contributors over the amount contributed.",
+      ru: "Механизм финансирования, использующий принципы квадратичного голосования для определения распределения соответствующих средств, подчеркивая количество участников, а не сумму вклада.",
+    },
+    source: {
+      en: "Gitcoin",
+      ru: "Gitcoin",
+    },
+    link: "https://gitcoin.co/grants/",
+  },
+  {
+    id: "46",
+    title: {
+      en: "Filecoin - Decentralized Storage",
+      ru: "Filecoin - децентрализованное хранилище",
+    },
+    industry: "Technology",
+    technology: "Blockchain",
+    description: {
+      en: "A decentralized storage network that turns cloud storage into an algorithmic market, enabling users to rent out their unused hard drive space and get paid in FIL tokens.",
+      ru: "Децентрализованная сеть хранения, превращающая облачное хранилище в алгоритмический рынок, позволяющая пользователям сдавать в аренду неиспользуемое место на жестком диске и получать оплату в токенах FIL.",
+    },
+    source: {
+      en: "Protocol Labs",
+      ru: "Protocol Labs",
+    },
+    link: "https://filecoin.io/",
+  },
+  {
+    id: "47",
+    title: {
+      en: "UMA Protocol - Synthetic Assets",
+      ru: "UMA Protocol - синтетические активы",
+    },
+    industry: "Finance",
+    technology: "Smart Contracts",
+    description: {
+      en: "A protocol for creating synthetic assets on Ethereum, allowing anyone to create custom financial contracts secured by economic incentives without the need for trusted oracles.",
+      ru: "Протокол для создания синтетических активов на Ethereum, позволяющий любому создавать пользовательские финансовые контракты, защищенные экономическими стимулами, без необходимости доверенных оракулов.",
+    },
+    source: {
+      en: "UMA Protocol",
+      ru: "UMA Protocol",
+    },
+    link: "https://umaproject.org/",
+  },
+  {
+    id: "48",
+    title: {
+      en: "EigenLayer - Restaking Protocol",
+      ru: "EigenLayer - протокол рестейкинга",
+    },
+    industry: "Finance",
+    technology: "Smart Contracts",
+    description: {
+      en: "A protocol that enables Ethereum validators to restake their ETH, extending Ethereum's security to other applications and services through cryptoeconomic security sharing.",
+      ru: "Протокол, позволяющий валидаторам Ethereum повторно размещать свой ETH, распространяя безопасность Ethereum на другие приложения и сервисы через совместное использование криптоэкономической безопасности.",
+    },
+    source: {
+      en: "EigenLayer",
+      ru: "EigenLayer",
+    },
+    link: "https://www.eigenlayer.xyz/",
+  },
+  {
+    id: "49",
+    title: {
+      en: "Celestia - Modular Blockchain Network",
+      ru: "Celestia - модульная блокчейн-сеть",
+    },
+    industry: "Technology",
+    technology: "Blockchain",
+    description: {
+      en: "A modular blockchain architecture that separates consensus and execution, allowing developers to deploy their own execution layers while leveraging shared security.",
+      ru: "Модульная архитектура блокчейна, разделяющая консенсус и выполнение, позволяющая разработчикам развертывать собственные слои выполнения, используя общую безопасность.",
+    },
+    source: {
+      en: "Celestia",
+      ru: "Celestia",
+    },
+    link: "https://celestia.org/",
+  },
+  {
+    id: "50",
+    title: {
+      en: "WorldCoin - Biometric Identity",
+      ru: "WorldCoin - биометрическая идентификация",
+    },
+    industry: "Identity",
+    technology: "Blockchain",
+    description: {
+      en: "A protocol that uses biometric verification (iris scanning) to create unique digital identities, aiming to enable a globally inclusive digital economy with privacy-preserving authentication.",
+      ru: "Протокол, использующий биометрическую верификацию (сканирование радужной оболочки) для создания уникальных цифровых удостоверений личности, направленный на создание глобально инклюзивной цифровой экономики с аутентификацией, сохраняющей конфиденциальность.",
+    },
+    source: {
+      en: "WorldCoin",
+      ru: "WorldCoin",
+    },
+    link: "https://worldcoin.org/",
+  }
+];
+
+// Helper functions to get unique industries and technologies
+export const getUniqueIndustries = (useCases: UseCase[]) => {
+  const industries = useCases.map((useCase) => useCase.industry);
+  return [...new Set(industries)].sort();
+};
+
+export const getUniqueTechnologies = (useCases: UseCase[]) => {
+  const technologies = useCases.map((useCase) => useCase.technology);
+  return [...new Set(technologies)].sort();
+};
+
+// Function to get translated use cases based on current language
+export const useTranslatedUseCases = () => {
+  const { currentLanguage } = useLanguage();
+  
+  return useCases.map((useCase) => ({
+    id: useCase.id,
+    title: useCase.title[currentLanguage as keyof typeof useCase.title],
+    description: useCase.description[currentLanguage as keyof typeof useCase.description],
+    industry: useCase.industry,
+    technology: useCase.technology,
+    source: useCase.source ? useCase.source[currentLanguage as keyof typeof useCase.source] : undefined,
+    link: useCase.link,
+  }));
+};
