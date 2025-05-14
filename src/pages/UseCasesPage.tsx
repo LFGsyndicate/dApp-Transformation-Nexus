@@ -6,8 +6,17 @@ import { UseCaseCard } from "../components/UseCaseCard";
 import { UseCaseFilters } from "../components/UseCaseFilters";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTranslatedUseCases, getUniqueIndustries, getUniqueTechnologies } from "../data/useCases";
-import { Button } from "../components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { 
+  Pagination, 
+  PaginationContent, 
+  PaginationEllipsis, 
+  PaginationItem, 
+  PaginationLink, 
+  PaginationNext, 
+  PaginationPrevious 
+} from "../components/ui/pagination";
+import { Search } from "lucide-react";
+import { Input } from "../components/ui/input";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -67,24 +76,80 @@ const UseCasesPage = () => {
   const industries = getUniqueIndustries(useCases);
   const technologies = getUniqueTechnologies(useCases);
 
+  // Generate page numbers for pagination
+  const getPageNumbers = () => {
+    const pages = [];
+    const maxPagesToShow = 5;
+    
+    if (totalPages <= maxPagesToShow) {
+      // If we have fewer pages than our limit, show all pages
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      // Always show first page
+      pages.push(1);
+      
+      // Calculate the start and end of the "middle" section
+      let startPage, endPage;
+      
+      if (currentPage <= 3) {
+        // If we're near the beginning
+        startPage = 2;
+        endPage = 4;
+        pages.push(...Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i));
+        pages.push("ellipsis");
+      } else if (currentPage >= totalPages - 2) {
+        // If we're near the end
+        pages.push("ellipsis");
+        startPage = totalPages - 3;
+        endPage = totalPages - 1;
+        pages.push(...Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i));
+      } else {
+        // We're somewhere in the middle
+        pages.push("ellipsis");
+        pages.push(currentPage - 1);
+        pages.push(currentPage);
+        pages.push(currentPage + 1);
+        pages.push("ellipsis");
+      }
+      
+      // Always show last page
+      pages.push(totalPages);
+    }
+    
+    return pages;
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1">
         {/* Hero section */}
-        <section className="bg-accent py-12">
-          <div className="container-content">
+        <section className="bg-accent/60 py-12 relative overflow-hidden">
+          <div className="absolute inset-0 bg-grid-pattern opacity-50"></div>
+          <div className="container-content relative z-10">
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-4xl font-bold tracking-tight">
-                {t("Explore Use Cases", "Изучить примеры использования")}
+              <h1 className="text-4xl font-bold tracking-tight mb-4">
+                {t("Use Cases Catalog", "Каталог примеров использования")}
               </h1>
-              <p className="mt-4 text-lg text-muted-foreground">
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 {t(
-                  "Discover real-world applications of decentralized technologies and AI across various industries.",
-                  "Откройте для себя реальные примеры применения децентрализованных технологий и ИИ в различных отраслях."
+                  "Explore comprehensive real-world applications of decentralized technologies and AI across various industries.",
+                  "Исчерпывающие примеры применения децентрализованных технологий и искусственного интеллекта в различных отраслях."
                 )}
               </p>
-              <p className="mt-2 text-sm text-muted-foreground">
+              <div className="relative max-w-md mx-auto mt-6">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder={t("Search use cases...", "Поиск примеров использования...")}
+                  className="pl-10 w-full"
+                  value={searchTerm}
+                  onChange={handleSearch}
+                />
+              </div>
+              <p className="mt-4 text-sm text-muted-foreground">
                 {filteredUseCases.length} {t("use cases found", "примеров использования найдено")}
               </p>
             </div>
@@ -119,45 +184,54 @@ const UseCasesPage = () => {
                       ))}
                     </div>
                     
-                    {/* Pagination */}
+                    {/* Improved Pagination */}
                     {totalPages > 1 && (
-                      <div className="flex justify-center items-center mt-8 gap-2">
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                          disabled={currentPage === 1}
-                          className="flex items-center gap-1"
-                        >
-                          <ChevronLeft className="h-4 w-4" />
-                          {t("Previous", "Предыдущая")}
-                        </Button>
-                        
-                        <div className="flex items-center gap-1 mx-2">
-                          <span className="text-sm">
-                            {t("Page", "Страница")} {currentPage} {t("of", "из")} {totalPages}
-                          </span>
-                        </div>
-                        
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                          disabled={currentPage === totalPages}
-                          className="flex items-center gap-1"
-                        >
-                          {t("Next", "Следующая")}
-                          <ChevronRight className="h-4 w-4" />
-                        </Button>
-                      </div>
+                      <Pagination className="mt-8">
+                        <PaginationContent>
+                          <PaginationItem>
+                            <PaginationPrevious 
+                              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                              className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+                            />
+                          </PaginationItem>
+                          
+                          {getPageNumbers().map((page, index) => (
+                            <PaginationItem key={index}>
+                              {page === "ellipsis" ? (
+                                <PaginationEllipsis />
+                              ) : (
+                                <PaginationLink 
+                                  isActive={currentPage === page}
+                                  onClick={() => setCurrentPage(page as number)}
+                                >
+                                  {page}
+                                </PaginationLink>
+                              )}
+                            </PaginationItem>
+                          ))}
+                          
+                          <PaginationItem>
+                            <PaginationNext 
+                              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                              className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+                            />
+                          </PaginationItem>
+                        </PaginationContent>
+                      </Pagination>
                     )}
                   </>
                 ) : (
-                  <div className="text-center col-span-3 py-16">
-                    {t(
-                      "No use cases match the current filters.",
-                      "Нет примеров использования, соответствующих текущим фильтрам."
-                    )}
+                  <div className="text-center py-16 bg-accent/30 rounded-lg">
+                    <Search className="mx-auto h-12 w-12 text-muted-foreground mb-4 opacity-50" />
+                    <h3 className="text-xl font-medium mb-2">
+                      {t("No results found", "Результаты не найдены")}
+                    </h3>
+                    <p className="text-muted-foreground max-w-md mx-auto">
+                      {t(
+                        "Try adjusting your search or filter criteria to find what you're looking for.",
+                        "Попробуйте изменить критерии поиска или фильтрации, чтобы найти то, что вы ищете."
+                      )}
+                    </p>
                   </div>
                 )}
               </section>

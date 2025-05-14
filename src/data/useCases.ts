@@ -1,4 +1,3 @@
-
 import { useLanguage } from "../hooks/useLanguage";
 
 type UseCase = {
@@ -12,6 +11,7 @@ type UseCase = {
 };
 
 const useCases: UseCase[] = [
+  // Existing use cases
   {
     id: "1",
     title: {
@@ -502,28 +502,260 @@ const useCases: UseCase[] = [
       ru: "Всемирная продовольственная программа",
     },
     link: "https://innovation.wfp.org/project/building-blocks",
-  }
-];
-
-export const useTranslatedUseCases = () => {
-  const { currentLanguage } = useLanguage();
-
-  const translatedUseCases = useCases.map((useCase) => ({
-    ...useCase,
-    title: useCase.title[currentLanguage],
-    description: useCase.description[currentLanguage],
-    source: useCase.source ? useCase.source[currentLanguage] : undefined,
-  }));
-
-  return translatedUseCases;
-};
-
-export const getUniqueIndustries = (useCases: any[]) => {
-  const industries = [...new Set(useCases.map((useCase) => useCase.industry))];
-  return industries;
-};
-
-export const getUniqueTechnologies = (useCases: any[]) => {
-  const technologies = [...new Set(useCases.map((useCase) => useCase.technology))];
-  return technologies;
-};
+  },
+  
+  // Adding more use cases from the research papers
+  {
+    id: "31",
+    title: {
+      en: "Centrifuge - RWA Tokenization",
+      ru: "Centrifuge - токенизация реальных активов",
+    },
+    industry: "Finance",
+    technology: "Blockchain",
+    description: {
+      en: "A protocol for tokenizing real-world assets, allowing businesses to use assets like invoices or mortgages as collateral to access DeFi liquidity.",
+      ru: "Протокол для токенизации реальных активов, позволяющий бизнесу использовать такие активы, как счета или ипотеки, в качестве обеспечения для доступа к ликвидности DeFi.",
+    },
+    source: {
+      en: "Polkadot",
+      ru: "Polkadot",
+    },
+    link: "https://centrifuge.io/",
+  },
+  {
+    id: "32",
+    title: {
+      en: "Synthetix - Decentralized Derivatives",
+      ru: "Synthetix - децентрализованные деривативы",
+    },
+    industry: "Finance",
+    technology: "Smart Contracts",
+    description: {
+      en: "A protocol allowing users to mint synthetic assets that track various real-world assets including commodities, currencies, and stocks using crypto as collateral.",
+      ru: "Протокол, позволяющий пользователям выпускать синтетические активы, отслеживающие различные реальные активы, включая сырьевые товары, валюты и акции, используя криптовалюту в качестве обеспечения.",
+    },
+    source: {
+      en: "Synthetix",
+      ru: "Synthetix",
+    },
+    link: "https://synthetix.io/",
+  },
+  {
+    id: "33",
+    title: {
+      en: "Axelar Network - Cross-Chain Infrastructure",
+      ru: "Axelar Network - кросс-чейн инфраструктура",
+    },
+    industry: "Technology",
+    technology: "Blockchain",
+    description: {
+      en: "A decentralized network enabling secure cross-chain communication, allowing developers to build applications that can access state or functions across multiple blockchain ecosystems.",
+      ru: "Децентрализованная сеть, обеспечивающая безопасную кросс-чейн коммуникацию, позволяющая разработчикам создавать приложения, которые могут получать доступ к состоянию или функциям в различных блокчейн-экосистемах.",
+    },
+    source: {
+      en: "Axelar Network",
+      ru: "Axelar Network",
+    },
+    link: "https://axelar.network/",
+  },
+  {
+    id: "34",
+    title: {
+      en: "LivePeer - Decentralized Video Infrastructure",
+      ru: "LivePeer - децентрализованная видеоинфраструктура",
+    },
+    industry: "Media",
+    technology: "Blockchain",
+    description: {
+      en: "A decentralized video transcoding network that leverages blockchain to provide affordable, reliable, and scalable video streaming infrastructure for developers.",
+      ru: "Децентрализованная сеть транскодирования видео, использующая блокчейн для обеспечения доступной, надежной и масштабируемой инфраструктуры потоковой передачи видео для разработчиков.",
+    },
+    source: {
+      en: "LivePeer",
+      ru: "LivePeer",
+    },
+    link: "https://livepeer.org/",
+  },
+  {
+    id: "35",
+    title: {
+      en: "Helium Network - Decentralized Wireless Infrastructure",
+      ru: "Helium Network - децентрализованная беспроводная инфраструктура",
+    },
+    industry: "Telecommunications",
+    technology: "Blockchain",
+    description: {
+      en: "A decentralized wireless network powered by blockchain, allowing users to earn cryptocurrency by deploying and operating network nodes that provide coverage for IoT devices.",
+      ru: "Децентрализованная беспроводная сеть на основе блокчейна, позволяющая пользователям зарабатывать криптовалюту, развертывая и управляя узлами сети, которые обеспечивают покрытие для устройств IoT.",
+    },
+    source: {
+      en: "Helium",
+      ru: "Helium",
+    },
+    link: "https://www.helium.com/",
+  },
+  {
+    id: "36",
+    title: {
+      en: "Klima DAO - Carbon Credits Tokenization",
+      ru: "Klima DAO - токенизация углеродных кредитов",
+    },
+    industry: "Environment",
+    technology: "DAO",
+    description: {
+      en: "A DAO focused on accelerating the price appreciation of carbon assets by purchasing and removing carbon credits from the market, driving adoption of carbon-backed currencies.",
+      ru: "DAO, ориентированное на ускорение роста стоимости углеродных активов путем покупки и удаления углеродных кредитов с рынка, стимулируя внедрение валют, обеспеченных углеродными активами.",
+    },
+    source: {
+      en: "KlimaDAO",
+      ru: "KlimaDAO",
+    },
+    link: "https://www.klimadao.finance/",
+  },
+  {
+    id: "37",
+    title: {
+      en: "PAXos Medical Data Management",
+      ru: "PAXos управление медицинскими данными",
+    },
+    industry: "Healthcare",
+    technology: "Blockchain",
+    description: {
+      en: "A blockchain platform for secure healthcare data management enabling patients to control access to their health records while facilitating verified data sharing between healthcare providers.",
+      ru: "Блокчейн-платформа для безопасного управления медицинскими данными, позволяющая пациентам контролировать доступ к своим медицинским записям и облегчающая проверенный обмен данными между поставщиками медицинских услуг.",
+    },
+    source: {
+      en: "PAXos",
+      ru: "PAXos",
+    },
+    link: "https://paxos.com/",
+  },
+  {
+    id: "38",
+    title: {
+      en: "Lens Protocol - Social Graph Ownership",
+      ru: "Lens Protocol - владение социальным графом",
+    },
+    industry: "Social Media",
+    technology: "Blockchain",
+    description: {
+      en: "A decentralized social graph protocol giving users ownership of their content, social connections, and engagement data that can be used across multiple applications.",
+      ru: "Децентрализованный протокол социального графа, предоставляющий пользователям право собственности на свой контент, социальные связи и данные о взаимодействиях, которые можно использовать в различных приложениях.",
+    },
+    source: {
+      en: "Lens Protocol",
+      ru: "Lens Protocol",
+    },
+    link: "https://www.lens.xyz/",
+  },
+  {
+    id: "39",
+    title: {
+      en: "Ramp Protocol - Fiat to Crypto On-Ramp",
+      ru: "Ramp Protocol - упрощённый вход из фиата в крипто",
+    },
+    industry: "Finance",
+    technology: "Blockchain",
+    description: {
+      en: "A payment infrastructure that enables users to purchase crypto directly using fiat currency without leaving the application they're using, reducing barriers to entry.",
+      ru: "Платежная инфраструктура, позволяющая пользователям покупать криптовалюту напрямую с помощью фиатной валюты, не выходя из используемого приложения, снижая барьеры для входа.",
+    },
+    source: {
+      en: "Ramp Network",
+      ru: "Ramp Network",
+    },
+    link: "https://ramp.network/",
+  },
+  {
+    id: "40",
+    title: {
+      en: "Aragon Client - DAO Creation Platform",
+      ru: "Aragon Client - платформа для создания DAO",
+    },
+    industry: "Governance",
+    technology: "DAO",
+    description: {
+      en: "A platform allowing users to create and manage decentralized autonomous organizations with customizable governance structures, tokenomics, and dispute resolution mechanisms.",
+      ru: "Платформа, позволяющая пользователям создавать и управлять децентрализованными автономными организациями с настраиваемыми структурами управления, токеномикой и механизмами разрешения споров.",
+    },
+    source: {
+      en: "Aragon",
+      ru: "Aragon",
+    },
+    link: "https://aragon.org/",
+  },
+  {
+    id: "41",
+    title: {
+      en: "ENS - Ethereum Name Service",
+      ru: "ENS - служба имен Ethereum",
+    },
+    industry: "Identity",
+    technology: "Blockchain",
+    description: {
+      en: "A distributed, open naming system based on the Ethereum blockchain that maps human-readable names to machine-readable identifiers, simplifying the use of blockchain addresses.",
+      ru: "Распределенная, открытая система именования на основе блокчейна Ethereum, которая сопоставляет человекочитаемые имена с машиночитаемыми идентификаторами, упрощая использование блокчейн-адресов.",
+    },
+    source: {
+      en: "ENS",
+      ru: "ENS",
+    },
+    link: "https://ens.domains/",
+  },
+  {
+    id: "42",
+    title: {
+      en: "Molecule Protocol - Drug Development IP-NFTs",
+      ru: "Molecule Protocol - IP-NFT для разработки лекарств",
+    },
+    industry: "Healthcare",
+    technology: "NFTs",
+    description: {
+      en: "A platform that tokenizes intellectual property rights for drug development as IP-NFTs, enabling researchers to find funding and collaborate more efficiently on pharmaceutical research.",
+      ru: "Платформа, токенизирующая права интеллектуальной собственности на разработку лекарств в виде IP-NFT, позволяющая исследователям находить финансирование и более эффективно сотрудничать в фармацевтических исследованиях.",
+    },
+    source: {
+      en: "Molecule Protocol",
+      ru: "Molecule Protocol",
+    },
+    link: "https://www.molecule.to/",
+  },
+  {
+    id: "43",
+    title: {
+      en: "Tornado Cash - Privacy Solution",
+      ru: "Tornado Cash - решение для конфиденциальности",
+    },
+    industry: "Finance",
+    technology: "Blockchain",
+    description: {
+      en: "A non-custodial privacy solution utilizing zero-knowledge proofs to enable private transactions on Ethereum by breaking the on-chain link between source and destination addresses.",
+      ru: "Некастодиальное решение для конфиденциальности, использующее доказательства с нулевым разглашением для обеспечения приватных транзакций в Ethereum путём разрыва связи между адресами источника и назначения.",
+    },
+    source: {
+      en: "Tornado Cash",
+      ru: "Tornado Cash",
+    },
+    link: "https://tornado.cash/",
+  },
+  {
+    id: "44",
+    title: {
+      en: "Proof of Humanity - Sybil Resistance Registry",
+      ru: "Proof of Humanity - реестр устойчивости к атаке Сивиллы",
+    },
+    industry: "Identity",
+    technology: "Blockchain",
+    description: {
+      en: "A system combining social verification and video submission to create a registry of unique human identities, providing Sybil resistance for applications requiring one-person-one-vote mechanisms.",
+      ru: "Система, сочетающая социальную верификацию и отправку видео для создания реестра уникальных человеческих личностей, обеспечивающая устойчивость к атаке Сивиллы для приложений, требующих механизмов один-человек-один-голос.",
+    },
+    source: {
+      en: "Proof of Humanity",
+      ru: "Proof of Humanity",
+    },
+    link: "https://www.proofofhumanity.id/",
+  },
+  {
+    id: "45",
