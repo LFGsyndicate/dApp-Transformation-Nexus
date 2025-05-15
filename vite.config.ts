@@ -4,13 +4,9 @@ import react from '@vitejs/plugin-react-swc'
 import path from 'path'
 
 export default defineConfig(({ mode }) => {
-  // Загружаем переменные окружения для текущего режима
   const env = loadEnv(mode, process.cwd(), '');
-
-  // Определяем имя репозитория из переменной окружения VITE_REPO_NAME,
-  // если она не установлена, то используем пустую строку (для локальной разработки)
-  // или можно установить значение по умолчанию, если вы хотите.
-  const repoName = env.VITE_REPO_NAME || '';
+  const repoName = env.VITE_REPO_NAME || ''; // Из deploy.yml
+  const viteBase = mode === 'production' && repoName ? `/${repoName}/` : '/';
 
   return {
     plugins: [react()],
@@ -19,13 +15,12 @@ export default defineConfig(({ mode }) => {
         '@': path.resolve(__dirname, './src'),
       },
     },
-    base: mode === 'production' && repoName ? `/${repoName}/` : '/',
-    server: {
-      host: '::',
-      port: 8080,
+    base: viteBase,
+    // Добавляем переменные окружения, доступные в клиентском коде
+    define: {
+      'import.meta.env.VITE_BASE_PATH': JSON.stringify(viteBase)
     },
-    build: {
-      outDir: 'dist',
-    }
+    server: { /* ... */ },
+    build: { /* ... */ }
   }
 })
