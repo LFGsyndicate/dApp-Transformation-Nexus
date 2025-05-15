@@ -124,8 +124,8 @@ const AboutPage = () => {
             </h2>
             <div className="grid gap-8 md:grid-cols-3">
               <div className="text-center">
-                <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <CircleIcon name="pink-purple" size={40} />
+                <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <CircleIcon name="blue-light" size={40} />
                 </div>
                 <h3 className="text-xl font-bold mb-3">
                   {t("Mobile-First Design", "Дизайн Mobile-First")}
@@ -138,7 +138,7 @@ const AboutPage = () => {
                 </p>
               </div>
               <div className="text-center">
-                <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4">
                   <CircleIcon name="green-light" size={40} />
                 </div>
                 <h3 className="text-xl font-bold mb-3">
@@ -152,7 +152,7 @@ const AboutPage = () => {
                 </p>
               </div>
               <div className="text-center">
-                <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4">
                   <CircleIcon name="cream" size={40} />
                 </div>
                 <h3 className="text-xl font-bold mb-3">

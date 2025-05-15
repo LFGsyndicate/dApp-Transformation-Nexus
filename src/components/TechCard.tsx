@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { cn } from "../lib/utils";
@@ -15,7 +16,7 @@ export const TechCard: React.FC<TechCardProps> = ({ title, description, icon, to
     <Card className={cn("h-full", className)}>
       <CardHeader>
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary/10 text-2xl">
+          <div className="flex h-10 w-10 items-center justify-center text-2xl">
             {icon}
           </div>
           <CardTitle>{title}</CardTitle>

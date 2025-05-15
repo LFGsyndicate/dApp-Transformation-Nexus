@@ -144,7 +144,7 @@ const ConclusionsPage = () => {
                 {keyFindings.map((finding, index) => (
                   <Card key={index} className="h-full">
                     <CardContent className="p-6 flex flex-col h-full">
-                      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+                      <div className="mb-4 flex h-10 w-10 items-center justify-center">
                         <CircleIcon name={index === 0 ? "purple-light" : index === 1 ? "orange" : "lavender"} size={24} />
                       </div>
                       <h3 className="text-xl font-bold mb-3">{finding.title}</h3>
@@ -234,7 +234,7 @@ const ConclusionsPage = () => {
                       </p>
                     </li>
                     <li className="flex gap-3">
-                      <CircleIcon name="pink-purple" className="flex-shrink-0" size={24} />
+                      <CircleIcon name="olive" className="flex-shrink-0" size={24} />
                       <p>
                         {t(
                           "Advanced auditing tools and formal verification methods",
@@ -243,7 +243,7 @@ const ConclusionsPage = () => {
                       </p>
                     </li>
                     <li className="flex gap-3">
-                      <CircleIcon name="olive" className="flex-shrink-0" size={24} />
+                      <CircleIcon name="pink-purple" className="flex-shrink-0" size={24} />
                       <p>
                         {t(
                           "User interface improvements and abstraction of complexity",
