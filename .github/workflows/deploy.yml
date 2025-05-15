@@ -2,20 +2,28 @@
 name: Deploy static content to Pages
 
 on:
+  # Запускается при push в ветку main (или вашу основную ветку)
   push:
-    branches: ["main"]
+    branches: ["main"] # Замените на имя вашей основной ветки, если оно другое
+
+  # Позволяет запускать этот рабочий процесс вручную из вкладки Actions
   workflow_dispatch:
 
+# Устанавливает разрешения для GITHUB_TOKEN, чтобы разрешить развертывание на GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Разрешает только одно одновременное развертывание, пропуская запуски,
+# стоящие в очереди между текущим и последним запущенным.
+# Однако НЕ отменяет текущие запуски, так как мы хотим, чтобы эти прод-развертывания завершились.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
+  # Задача сборки
   build:
     runs-on: ubuntu-latest
     steps:
@@ -25,31 +33,34 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
-          bun-version: latest # или конкретную версию, если нужно
+          bun-version: latest # или укажите конкретную версию bun, если требуется
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile # Рекомендуется для CI для воспроизводимости
+        run: bun install --frozen-lockfile # Используем --frozen-lockfile для CI
 
       - name: Build project
-        # Добавляем переменную окружения для base URL, чтобы Vite его точно подхватил
-        # Имя репозитория должно быть точным
         env:
-          NODE_ENV: production # Убедимся, что режим production
-          VITE_REPO_NAME: dApp-Transformation-Nexus # Передаем имя репозитория
-        run: bun run build # Убедитесь, что в package.json "build": "vite build"
+          NODE_ENV: production # Устанавливаем режим сборки
+          # Передаем имя репозитория как переменную окружения для Vite
+          # Убедитесь, что это ТОЧНОЕ имя вашего репозитория
+          VITE_REPO_NAME: dApp-Transformation-Nexus
+        run: bun run build # Убедитесь, что в package.json есть скрипт "build": "vite build"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          # Загрузить содержимое папки 'dist' (результат сборки Vite)
           path: './dist'
 
+  # Задача развертывания
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
+    needs: build # Эта задача зависит от успешного завершения задачи 'build'
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        # Артефакт будет автоматически получен из задачи 'build'
