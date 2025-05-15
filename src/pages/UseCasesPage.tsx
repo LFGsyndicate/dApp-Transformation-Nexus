@@ -1,10 +1,17 @@
+
 import { useState } from "react";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { UseCaseCard } from "../components/UseCaseCard";
 import { UseCaseFilters } from "../components/UseCaseFilters";
 import { useLanguage } from "../hooks/useLanguage";
-import { useTranslatedUseCases, getUniqueIndustries, getUniqueTechnologies } from "../data/useCases";
+import { 
+  useTranslatedUseCases, 
+  getUniqueIndustries, 
+  getUniqueTechnologies, 
+  getIndustryCounts,
+  getTechnologyCounts 
+} from "../data/useCases";
 import { 
   Pagination, 
   PaginationContent, 
@@ -16,6 +23,7 @@ import {
 } from "../components/ui/pagination";
 import { Search } from "lucide-react";
 import { Input } from "../components/ui/input";
+import { SEOMetaTags } from "../components/SEOMetaTags";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -28,6 +36,7 @@ type TranslatedUseCase = {
   technology: string;
   source?: string;
   link?: string;
+  researchPaper?: string;
 };
 
 const UseCasesPage = () => {
@@ -38,6 +47,10 @@ const UseCasesPage = () => {
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
   const [selectedTechnologies, setSelectedTechnologies] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Получаем счетчики для индустрий и технологий
+  const industryCounts = getIndustryCounts();
+  const technologyCounts = getTechnologyCounts();
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -83,7 +96,7 @@ const UseCasesPage = () => {
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedUseCases = filteredUseCases.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-  // Here we're using the translated use cases directly, so we need to get industries and technologies from them
+  // Get unique industries and technologies from the translated useCases array
   const industries = Array.from(new Set(useCases.map(useCase => useCase.industry))).sort();
   const technologies = Array.from(new Set(useCases.map(useCase => useCase.technology))).sort();
 
@@ -132,8 +145,33 @@ const UseCasesPage = () => {
     return pages;
   };
 
+  // Prepare SEO metadata based on filters
+  let seoTitle = `Web3 Use Cases Catalog - ${useCases.length}+ Blockchain, DAO, NFT & AI Examples`;
+  let seoDescription = `Explore ${useCases.length}+ real-world use cases of blockchain, smart contracts, DAOs, NFTs and AI across various industries with verified sources and research references.`;
+  
+  if (selectedTechnologies.length === 1) {
+    seoTitle = `${selectedTechnologies[0]} Use Cases - Web3 Technology Applications Catalog`;
+    seoDescription = `Explore real-world use cases of ${selectedTechnologies[0]} technology across various industries with verified sources and practical implementations.`;
+  }
+  
+  if (selectedIndustries.length === 1) {
+    seoTitle = `Web3 Use Cases in ${selectedIndustries[0]} - Industry Applications Catalog`;
+    seoDescription = `Discover how blockchain, DAOs, NFTs, and AI are transforming the ${selectedIndustries[0]} industry with real-world use cases and verified implementations.`;
+  }
+  
+  if (selectedTechnologies.length === 1 && selectedIndustries.length === 1) {
+    seoTitle = `${selectedTechnologies[0]} Applications in ${selectedIndustries[0]} - Web3 Use Cases`;
+    seoDescription = `Explore how ${selectedTechnologies[0]} technology is revolutionizing the ${selectedIndustries[0]} industry with practical examples and verified implementations.`;
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
+      <SEOMetaTags 
+        title={seoTitle}
+        description={seoDescription}
+        keywords={`${technologies.join(', ')}, ${industries.join(', ')}, use cases, blockchain, web3`}
+      />
+      
       <Header />
       <main className="flex-1">
         {/* Hero section */}
@@ -146,8 +184,8 @@ const UseCasesPage = () => {
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 {t(
-                  "Explore comprehensive real-world applications of decentralized technologies and AI across various industries.",
-                  "Исчерпывающие примеры применения децентрализованных технологий и искусственного интеллекта в различных отраслях."
+                  `Explore ${useCases.length}+ comprehensive real-world applications of decentralized technologies and AI across various industries.`,
+                  `Исчерпывающие примеры применения децентрализованных технологий и искусственного интеллекта в различных отраслях (${useCases.length}+ кейсов).`
                 )}
               </p>
               <div className="relative max-w-md mx-auto mt-6">
@@ -182,6 +220,8 @@ const UseCasesPage = () => {
                   technologies={technologies}
                   selectedTechnologies={selectedTechnologies}
                   onTechnologyChange={handleTechnologyChange}
+                  industryCounts={industryCounts}
+                  technologyCounts={technologyCounts}
                 />
               </aside>
 

@@ -15,6 +15,7 @@ type UseCase = {
   technology: string;
   source?: string;
   link?: string;
+  researchPaper?: string;
 };
 
 interface UseCaseCardProps {
@@ -23,7 +24,7 @@ interface UseCaseCardProps {
 
 const UseCaseCard: React.FC<UseCaseCardProps> = ({ useCase }) => {
   const { t } = useLanguage();
-  const { title, description, industry, technology, source, link } = useCase;
+  const { title, description, industry, technology, source, link, researchPaper } = useCase;
   
   // Generate a consistent but visually distinct background for each card based on the industry
   const getBgPattern = (industry: string) => {
@@ -88,20 +89,26 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ useCase }) => {
         )}
       </CardContent>
       
-      <CardFooter className="pt-0">
-        {link ? (
-          <Button variant="outline" asChild size="sm" className="w-full">
-            <a href={link} target="_blank" rel="noopener noreferrer">
-              {t("View Source", "Посмотреть источник")}
-              <ExternalLink size={14} className="ml-2" />
-            </a>
-          </Button>
-        ) : (
-          <Button variant="secondary" size="sm" className="w-full">
-            {t("Learn More", "Узнать больше")}
-          </Button>
-        )}
-      </CardFooter>
+      {/* Только показываем кнопку, если есть ссылка или исследовательский документ */}
+      {(link || researchPaper) && (
+        <CardFooter className="pt-0">
+          {link ? (
+            <Button variant="outline" asChild size="sm" className="w-full">
+              <a href={link} target="_blank" rel="noopener noreferrer" aria-label={`View source for ${title}`}>
+                {t("View Source", "Посмотреть источник")}
+                <ExternalLink size={14} className="ml-2" />
+              </a>
+            </Button>
+          ) : researchPaper ? (
+            <Button variant="outline" asChild size="sm" className="w-full">
+              <a href={researchPaper} target="_blank" rel="noopener noreferrer" aria-label={`View research paper for ${title}`}>
+                {t("View Research Paper", "Посмотреть исследование")}
+                <ExternalLink size={14} className="ml-2" />
+              </a>
+            </Button>
+          ) : null}
+        </CardFooter>
+      )}
     </Card>
   );
 };
