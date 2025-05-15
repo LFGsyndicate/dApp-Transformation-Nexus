@@ -1,14 +1,19 @@
+
 // vite.config.ts
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc' // или @vitejs/plugin-react, если используете его
 import path from 'path'
+import { componentTagger } from "lovable-tagger";
 
 // Имя вашего репозитория
 const REPO_NAME = 'dApp-Transformation-Nexus';
 
 export default defineConfig(({ mode }) => {
   return {
-    plugins: [react()],
+    plugins: [
+      react(),
+      mode === 'development' && componentTagger(),
+    ].filter(Boolean),
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),

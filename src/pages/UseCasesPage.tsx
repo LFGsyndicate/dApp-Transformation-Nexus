@@ -8,9 +8,9 @@ import { useLanguage } from "../hooks/useLanguage";
 import { 
   useTranslatedUseCases, 
   getUniqueIndustries, 
-  getUniqueTechnologies, 
+  getUniqueTechnologies,
   getIndustryCounts,
-  getTechnologyCounts 
+  getTechnologyCounts
 } from "../data/useCases";
 import { 
   Pagination, 
@@ -48,7 +48,7 @@ const UseCasesPage = () => {
   const [selectedTechnologies, setSelectedTechnologies] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Получаем счетчики для индустрий и технологий
+  // Get counts for industries and technologies
   const industryCounts = getIndustryCounts();
   const technologyCounts = getTechnologyCounts();
 

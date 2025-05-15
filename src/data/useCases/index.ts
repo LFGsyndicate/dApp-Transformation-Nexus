@@ -1,92 +1,77 @@
 
-import { useLanguage } from "../../hooks/useLanguage";
-import { UseCase, sortUseCases } from './types';
+import { UseCase } from './types';
 import { getAllBlockchainUseCases } from './blockchain';
 import { getAllSmartContractsUseCases } from './smartContracts';
 import { getAllDaoUseCases } from './dao';
 import { getAllNftUseCases } from './nfts';
 import { getAllAiUseCases } from './ai';
-import { getAllAdditionalUseCases } from './additional';
+import { additionalUseCases } from './additional';
+import { useLanguage } from '../../hooks/useLanguage';
 
-// Combine all use cases from different technology files
-const getAllUseCases = (): UseCase[] => {
+// Function to get all use cases
+export const getAllUseCases = (): UseCase[] => {
   return [
     ...getAllBlockchainUseCases(),
     ...getAllSmartContractsUseCases(),
     ...getAllDaoUseCases(),
     ...getAllNftUseCases(),
     ...getAllAiUseCases(),
-    ...getAllAdditionalUseCases() // Добавляем дополнительные кейсы
+    ...additionalUseCases
   ];
 };
 
-// Function to get unique industries across all use cases
-export const getUniqueIndustries = (useCases: UseCase[] = getAllUseCases()) => {
-  const industries = useCases.map((useCase) => useCase.industry);
-  return [...new Set(industries)].sort();
-};
-
-// Function to get unique technologies across all use cases
-export const getUniqueTechnologies = (useCases: UseCase[] = getAllUseCases()) => {
-  const technologies = useCases.map((useCase) => useCase.technology);
-  return [...new Set(technologies)].sort();
-};
-
-// Function to get translated use cases based on current language
+// Function to translate use cases based on current language
 export const useTranslatedUseCases = () => {
   const { currentLanguage } = useLanguage();
-  const allUseCases = getAllUseCases();
+  const useCases = getAllUseCases();
   
-  // Returns sorted use cases (with links first)
-  return sortUseCases(allUseCases).map((useCase) => ({
+  return useCases.map(useCase => ({
     id: useCase.id,
-    title: useCase.title[currentLanguage as keyof typeof useCase.title],
-    description: useCase.description[currentLanguage as keyof typeof useCase.description],
+    title: useCase.title[currentLanguage as keyof typeof useCase.title] || useCase.title.en,
+    description: useCase.description[currentLanguage as keyof typeof useCase.description] || useCase.description.en,
     industry: useCase.industry,
     technology: useCase.technology,
-    source: useCase.source ? useCase.source[currentLanguage as keyof typeof useCase.source] : undefined,
+    source: useCase.source ? useCase.source[currentLanguage as keyof typeof useCase.source] || useCase.source.en : undefined,
     link: useCase.link,
-    researchPaper: useCase.researchPaper,
+    researchPaper: useCase.researchPaper
   }));
 };
 
-// Function to get use cases by technology
-export const getUseCasesByTechnology = (technology: string): UseCase[] => {
-  return getAllUseCases().filter(useCase => useCase.technology === technology);
+// Function to get all unique industries
+export const getUniqueIndustries = (): string[] => {
+  const useCases = getAllUseCases();
+  const industries = useCases.map(useCase => useCase.industry);
+  return Array.from(new Set(industries)).sort();
 };
 
-// Function to get use cases by industry
-export const getUseCasesByIndustry = (industry: string): UseCase[] => {
-  return getAllUseCases().filter(useCase => useCase.industry === industry);
+// Function to get all unique technologies
+export const getUniqueTechnologies = (): string[] => {
+  const useCases = getAllUseCases();
+  const technologies = useCases.map(useCase => useCase.technology);
+  return Array.from(new Set(technologies)).sort();
 };
 
-// Функция для подсчета количества кейсов по индустриям
+// Function to count cases per industry
 export const getIndustryCounts = (): Record<string, number> => {
   const useCases = getAllUseCases();
   const counts: Record<string, number> = {};
   
   useCases.forEach(useCase => {
-    if (counts[useCase.industry]) {
-      counts[useCase.industry]++;
-    } else {
-      counts[useCase.industry] = 1;
-    }
+    const { industry } = useCase;
+    counts[industry] = (counts[industry] || 0) + 1;
   });
   
   return counts;
 };
 
-// Функция для подсчета количества кейсов по технологиям
+// Function to count cases per technology
 export const getTechnologyCounts = (): Record<string, number> => {
   const useCases = getAllUseCases();
   const counts: Record<string, number> = {};
   
   useCases.forEach(useCase => {
-    if (counts[useCase.technology]) {
-      counts[useCase.technology]++;
-    } else {
-      counts[useCase.technology] = 1;
-    }
+    const { technology } = useCase;
+    counts[technology] = (counts[technology] || 0) + 1;
   });
   
   return counts;
