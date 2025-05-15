@@ -1,9 +1,9 @@
-
-name: Deploy to GitHub Pages
+# .github/workflows/deploy.yml
+name: Deploy static content to Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -11,25 +11,37 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: '18'
-          cache: 'npm'
+          bun-version: latest # или конкретную версию, если нужно
+
       - name: Install dependencies
-        run: npm ci
-      - name: Build
-        run: npm run build
+        run: bun install --frozen-lockfile # Рекомендуется для CI для воспроизводимости
+
+      - name: Build project
+        # Добавляем переменную окружения для base URL, чтобы Vite его точно подхватил
+        # Имя репозитория должно быть точным
+        env:
+          NODE_ENV: production # Убедимся, что режим production
+          VITE_REPO_NAME: dApp-Transformation-Nexus # Передаем имя репозитория
+        run: bun run build # Убедитесь, что в package.json "build": "vite build"
+
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: './dist'
 
   deploy:
     environment:
@@ -40,4 +52,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
