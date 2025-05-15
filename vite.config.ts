@@ -1,35 +1,31 @@
-
 // vite.config.ts
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc' // или @vitejs/plugin-react, если используете его
+import { defineConfig, loadEnv } from 'vite'
+import react from '@vitejs/plugin-react-swc'
 import path from 'path'
-import { componentTagger } from "lovable-tagger";
-
-// Имя вашего репозитория
-const REPO_NAME = 'dApp-Transformation-Nexus';
 
 export default defineConfig(({ mode }) => {
+  // Загружаем переменные окружения для текущего режима
+  const env = loadEnv(mode, process.cwd(), '');
+
+  // Определяем имя репозитория из переменной окружения VITE_REPO_NAME,
+  // если она не установлена, то используем пустую строку (для локальной разработки)
+  // или можно установить значение по умолчанию, если вы хотите.
+  const repoName = env.VITE_REPO_NAME || '';
+
   return {
-    plugins: [
-      react(),
-      mode === 'development' && componentTagger(),
-    ].filter(Boolean),
+    plugins: [react()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
       },
     },
-    // Устанавливаем базовый путь.
-    // Для GitHub Pages, если развертывание идет в <username>.github.io/<REPO_NAME>/,
-    // base должен быть '/<REPO_NAME>/'.
-    // Для локальной разработки base должен быть '/'.
-    base: mode === 'production' ? `/${REPO_NAME}/` : '/',
+    base: mode === 'production' && repoName ? `/${repoName}/` : '/',
     server: {
-      host: '::', // Для доступности в локальной сети
-      port: 8080, // Ваш текущий порт
+      host: '::',
+      port: 8080,
     },
     build: {
-      outDir: 'dist', // Папка для сборки (по умолчанию 'dist')
+      outDir: 'dist',
     }
   }
 })
