@@ -23,6 +23,9 @@ interface UseCaseFiltersProps {
   technologies: string[];
   selectedTechnologies: string[];
   onTechnologyChange: (technology: string) => void;
+  // Add the missing properties with their correct types
+  industryCounts: Record<string, number>;
+  technologyCounts: Record<string, number>;
 }
 
 export function UseCaseFilters({
@@ -34,6 +37,8 @@ export function UseCaseFilters({
   technologies,
   selectedTechnologies,
   onTechnologyChange,
+  industryCounts,
+  technologyCounts
 }: UseCaseFiltersProps) {
   const { t } = useLanguage();
   const [isIndustryOpen, setIsIndustryOpen] = useState(true);
@@ -134,7 +139,7 @@ export function UseCaseFilters({
                   {industry}
                 </Label>
                 <span className="text-xs text-muted-foreground">
-                  {industries.filter(i => i === industry).length}
+                  {industryCounts[industry] || 0}
                 </span>
               </div>
             ))}
@@ -171,7 +176,7 @@ export function UseCaseFilters({
                   {technology}
                 </Label>
                 <span className="text-xs text-muted-foreground">
-                  {technologies.filter(t => t === technology).length}
+                  {technologyCounts[technology] || 0}
                 </span>
               </div>
             ))}
