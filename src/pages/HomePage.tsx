@@ -10,6 +10,7 @@ import { useTranslatedUseCases } from "../data/useCases";
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { ChevronRight } from "lucide-react";
+import { CircleIcon } from "../components/CircleIcon";
 
 const HomePage = () => {
   const { t } = useLanguage();
@@ -109,7 +110,7 @@ const HomePage = () => {
                   "The foundational technology that enables secure, transparent, and immutable record-keeping across distributed networks.",
                   "Фундаментальная технология, обеспечивающая безопасное, прозрачное и неизменное ведение записей в распределенных сетях."
                 )}
-                icon={<div className="h-6 w-6 text-primary">🔗</div>}
+                icon={<CircleIcon name="blue-light" size={24} />}
                 to="/technologies/blockchain"
               />
               <TechCard
@@ -118,7 +119,7 @@ const HomePage = () => {
                   "Self-executing agreements with terms written directly into code, automating processes and eliminating intermediaries.",
                   "Самоисполняющиеся соглашения с условиями, записанными непосредственно в коде, автоматизирующие процессы и устраняющие посредников."
                 )}
-                icon={<div className="h-6 w-6 text-primary">📝</div>}
+                icon={<CircleIcon name="purple-light" size={24} />}
                 to="/technologies/smart-contracts"
               />
               <TechCard
@@ -127,7 +128,7 @@ const HomePage = () => {
                   "Beyond speculation, cryptocurrencies and tokens offer powerful utility that can transform payments, fundraising, financial services, and digital ownership.",
                   "Помимо спекуляций, криптовалюты и токены предлагают мощную утилитарность, которая может трансформировать платежи, сбор средств, финансовые услуги и цифровое владение."
                 )}
-                icon={<div className="h-6 w-6 text-primary">💰</div>}
+                icon={<CircleIcon name="orange" size={24} />}
                 to="/technologies/crypto-utility"
               />
               <TechCard
@@ -136,7 +137,7 @@ const HomePage = () => {
                   "DAOs represent a paradigm shift in organizational structure, enabling transparent, community-governed entities.",
                   "ДАО представляют собой парадигмальный сдвиг в организационной структуре, обеспечивая прозрачные, управляемые сообществом организации."
                 )}
-                icon={<div className="h-6 w-6 text-primary">🏛️</div>}
+                icon={<CircleIcon name="mint" size={24} />}
                 to="/technologies/dao"
               />
             </div>
