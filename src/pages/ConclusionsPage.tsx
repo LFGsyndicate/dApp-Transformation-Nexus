@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
@@ -6,6 +7,7 @@ import { useLanguage } from "../hooks/useLanguage";
 import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "../components/ui/card";
+import { CircleIcon } from "../components/CircleIcon";
 
 const ConclusionsPage = () => {
   const { t } = useLanguage();
@@ -142,8 +144,8 @@ const ConclusionsPage = () => {
                 {keyFindings.map((finding, index) => (
                   <Card key={index} className="h-full">
                     <CardContent className="p-6 flex flex-col h-full">
-                      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                        {index + 1}
+                      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+                        <CircleIcon name={index === 0 ? "purple-light" : index === 1 ? "orange" : "lavender"} size={24} />
                       </div>
                       <h3 className="text-xl font-bold mb-3">{finding.title}</h3>
                       <p className="text-muted-foreground flex-grow">{finding.description}</p>
@@ -171,7 +173,7 @@ const ConclusionsPage = () => {
                   </h3>
                   <ul className="space-y-3">
                     <li className="flex gap-3">
-                      <div className="h-6 w-6 flex-shrink-0 text-primary">⚖️</div>
+                      <CircleIcon name="sage" className="flex-shrink-0" size={24} />
                       <p>
                         {t(
                           "Regulatory uncertainty, especially regarding DAOs and token classifications",
@@ -180,7 +182,7 @@ const ConclusionsPage = () => {
                       </p>
                     </li>
                     <li className="flex gap-3">
-                      <div className="h-6 w-6 flex-shrink-0 text-primary">🔄</div>
+                      <CircleIcon name="pink" className="flex-shrink-0" size={24} />
                       <p>
                         {t(
                           "Scalability limitations of older blockchain networks",
@@ -189,7 +191,7 @@ const ConclusionsPage = () => {
                       </p>
                     </li>
                     <li className="flex gap-3">
-                      <div className="h-6 w-6 flex-shrink-0 text-primary">🔗</div>
+                      <CircleIcon name="blue-light" className="flex-shrink-0" size={24} />
                       <p>
                         {t(
                           "Interoperability gaps between different blockchain ecosystems",
@@ -198,7 +200,7 @@ const ConclusionsPage = () => {
                       </p>
                     </li>
                     <li className="flex gap-3">
-                      <div className="h-6 w-6 flex-shrink-0 text-primary">🛡️</div>
+                      <CircleIcon name="mint" className="flex-shrink-0" size={24} />
                       <p>
                         {t(
                           "Security vulnerabilities in smart contracts and protocol design",
@@ -214,7 +216,7 @@ const ConclusionsPage = () => {
                   </h3>
                   <ul className="space-y-3">
                     <li className="flex gap-3">
-                      <div className="h-6 w-6 flex-shrink-0 text-primary">🚀</div>
+                      <CircleIcon name="purple-medium" className="flex-shrink-0" size={24} />
                       <p>
                         {t(
                           "Layer 2 scaling solutions and modular blockchain architectures",
@@ -223,16 +225,16 @@ const ConclusionsPage = () => {
                       </p>
                     </li>
                     <li className="flex gap-3">
-                      <div className="h-6 w-6 flex-shrink-0 text-primary">🌉</div>
+                      <CircleIcon name="cream" className="flex-shrink-0" size={24} />
                       <p>
                         {t(
                           "Cross-chain protocols for interoperability and asset transfers",
-                          "Протоколы между цепочками для обеспечения совместимост�� и передачи активов"
+                          "Протоколы между цепочками для обеспечения совместимости и передачи активов"
                         )}
                       </p>
                     </li>
                     <li className="flex gap-3">
-                      <div className="h-6 w-6 flex-shrink-0 text-primary">🔍</div>
+                      <CircleIcon name="pink-purple" className="flex-shrink-0" size={24} />
                       <p>
                         {t(
                           "Advanced auditing tools and formal verification methods",
@@ -241,7 +243,7 @@ const ConclusionsPage = () => {
                       </p>
                     </li>
                     <li className="flex gap-3">
-                      <div className="h-6 w-6 flex-shrink-0 text-primary">👥</div>
+                      <CircleIcon name="olive" className="flex-shrink-0" size={24} />
                       <p>
                         {t(
                           "User interface improvements and abstraction of complexity",

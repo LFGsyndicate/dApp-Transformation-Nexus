@@ -5,6 +5,7 @@ import { Footer } from "../components/Footer";
 import { useLanguage } from "../hooks/useLanguage";
 import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
+import { CircleIcon } from "../components/CircleIcon";
 
 const AboutPage = () => {
   const { t } = useLanguage();
@@ -62,7 +63,10 @@ const AboutPage = () => {
               <div className="relative">
                 <div className="aspect-[4/3] rounded-lg bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 flex items-center justify-center p-8">
                   <div className="max-w-md text-center">
-                    <div className="text-4xl mb-6">🔍 + 🔮</div>
+                    <div className="flex justify-center gap-3 mb-6">
+                      <CircleIcon name="purple-light" size={32} />
+                      <CircleIcon name="orange" size={32} />
+                    </div>
                     <h3 className="text-xl font-bold mb-4">
                       {t(
                         "Research-Driven Insights & Future Vision",
@@ -121,7 +125,7 @@ const AboutPage = () => {
             <div className="grid gap-8 md:grid-cols-3">
               <div className="text-center">
                 <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <div className="text-2xl">📱</div>
+                  <CircleIcon name="pink-purple" size={40} />
                 </div>
                 <h3 className="text-xl font-bold mb-3">
                   {t("Mobile-First Design", "Дизайн Mobile-First")}
@@ -135,7 +139,7 @@ const AboutPage = () => {
               </div>
               <div className="text-center">
                 <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <div className="text-2xl">🌐</div>
+                  <CircleIcon name="green-light" size={40} />
                 </div>
                 <h3 className="text-xl font-bold mb-3">
                   {t("Bilingual Support", "Двуязычная поддержка")}
@@ -149,7 +153,7 @@ const AboutPage = () => {
               </div>
               <div className="text-center">
                 <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <div className="text-2xl">🌓</div>
+                  <CircleIcon name="cream" size={40} />
                 </div>
                 <h3 className="text-xl font-bold mb-3">
                   {t("Day & Night Modes", "Дневной и ночной режимы")}
