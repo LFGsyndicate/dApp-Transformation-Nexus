@@ -23,7 +23,7 @@ interface UseCaseFiltersProps {
   technologies: string[];
   selectedTechnologies: string[];
   onTechnologyChange: (technology: string) => void;
-  // Add the missing properties with their correct types
+  // These properties are still needed by the component but we won't display the counts
   industryCounts: Record<string, number>;
   technologyCounts: Record<string, number>;
 }
@@ -138,9 +138,6 @@ export function UseCaseFilters({
                 >
                   {industry}
                 </Label>
-                <span className="text-xs text-muted-foreground">
-                  {industryCounts[industry] || 0}
-                </span>
               </div>
             ))}
           </div>
@@ -175,9 +172,6 @@ export function UseCaseFilters({
                 >
                   {technology}
                 </Label>
-                <span className="text-xs text-muted-foreground">
-                  {technologyCounts[technology] || 0}
-                </span>
               </div>
             ))}
           </div>

@@ -6,6 +6,7 @@ import { getAllDaoUseCases } from './dao';
 import { getAllNftUseCases } from './nfts';
 import { getAllAiUseCases } from './ai';
 import { additionalUseCases } from './additional';
+import { moreUseCases } from './more';
 import { useLanguage } from '../../hooks/useLanguage';
 
 // Function to get all use cases
@@ -16,7 +17,8 @@ export const getAllUseCases = (): UseCase[] => {
     ...getAllDaoUseCases(),
     ...getAllNftUseCases(),
     ...getAllAiUseCases(),
-    ...additionalUseCases
+    ...additionalUseCases,
+    ...moreUseCases
   ];
 };
 
