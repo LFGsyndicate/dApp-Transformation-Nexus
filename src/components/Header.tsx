@@ -18,8 +18,8 @@ export function Header() {
   return (
     <header className="bg-background sticky top-0 z-50 border-b">
       <div className="container-content flex h-16 items-center">
-        <Link to="/" className="mr-4 font-bold">
-          {t("Decentralized Transformation Nexus", "Нексус Децентрализованной Трансформации")}
+        <Link to="/" className="mr-4 font-bold text-lg hover:text-primary transition-colors">
+          {t("DTN Research", "DTN Research")}
         </Link>
         <div className="ml-auto flex items-center gap-4">
           <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
