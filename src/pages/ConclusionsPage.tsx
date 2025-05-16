@@ -243,7 +243,7 @@ const ConclusionsPage = () => {
                       </p>
                     </li>
                     <li className="flex gap-3">
-                      <CircleIcon name="pink-purple" className="flex-shrink-0" size={24} />
+                      <CircleIcon name="pink" className="flex-shrink-0" size={24} />
                       <p>
                         {t(
                           "User interface improvements and abstraction of complexity",
