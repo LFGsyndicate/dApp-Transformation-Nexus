@@ -1,9 +1,12 @@
 
 import { Button } from "../components/ui/button";
 import { useLanguage } from "../hooks/useLanguage";
+import { Link } from "react-router-dom";
 
 export function Hero() {
   const { t } = useLanguage();
+  // Get base path from environment
+  const basePath = import.meta.env.VITE_BASE_PATH || '/';
 
   return (
     <section className="relative py-10 w-full">
@@ -23,14 +26,14 @@ export function Hero() {
           </p>
           <div className="mt-6 flex flex-col sm:flex-row gap-4">
             <Button size="lg" asChild>
-              <a href="/technologies">
+              <Link to="/technologies">
                 {t("Explore Technologies", "Изучить технологии")}
-              </a>
+              </Link>
             </Button>
             <Button size="lg" variant="secondary" asChild>
-              <a href="/use-cases">
+              <Link to="/use-cases">
                 {t("Browse Use Cases", "Просмотреть примеры использования")}
-              </a>
+              </Link>
             </Button>
           </div>
         </div>
@@ -39,10 +42,10 @@ export function Hero() {
           <div className="relative">
             <div className="absolute inset-0 bg-grid-pattern opacity-20 rounded-lg"></div>
             <div className="aspect-video rounded-lg bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 relative">
-              {/* Use the uploaded image for the abstract fluid design */}
+              {/* Use the uploaded image for the abstract fluid design with corrected path */}
               <div className="absolute inset-0 rounded-lg overflow-hidden">
                 <img 
-                  src="/lovable-uploads/b44163f8-2a72-4112-b57b-a37d258b660d.png" 
+                  src={`${basePath}lovable-uploads/b44163f8-2a72-4112-b57b-a37d258b660d.png`}
                   alt="Decentralized Transformation Concept" 
                   className="w-full h-full object-cover opacity-80" 
                 />

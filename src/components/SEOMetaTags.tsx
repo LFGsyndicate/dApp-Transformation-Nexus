@@ -14,13 +14,16 @@ interface SEOProps {
 export const SEOMetaTags: React.FC<SEOProps> = ({
   title = "Web3 Use Cases Catalog - 700+ Blockchain, DAO, NFT & AI Examples",
   description = "Explore 700+ real-world use cases of blockchain, smart contracts, DAOs, NFTs and AI across various industries with verified sources and research references.",
-  keywords = "blockchain, smart contracts, DAO, NFT, AI, Web3, use cases, decentralized, crypto, technology",
-  image = "/og-image.png",
+  keywords = "blockchain, smart contracts, DAO, NFT, AI, Web3, use cases, decentralized, crypto, technology, DeFi, token, metaverse, digital transformation",
+  image = "/lovable-uploads/b44163f8-2a72-4112-b57b-a37d258b660d.png",
   article = false,
 }) => {
   const { pathname } = useLocation();
-  const siteUrl = "https://yourwebsite.com";
+  // Use the correct base URL for GitHub Pages
+  const basePath = import.meta.env.VITE_BASE_PATH || '/';
+  const siteUrl = "https://lfgsyndicate.github.io/dApp-Transformation-Nexus";
   const canonical = siteUrl + pathname;
+  const fullImageUrl = `${siteUrl}${basePath}${image.replace(/^\//, '')}`;
 
   return (
     <Helmet>
@@ -35,19 +38,23 @@ export const SEOMetaTags: React.FC<SEOProps> = ({
       <meta property="og:url" content={canonical} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={`${siteUrl}${image}`} />
+      <meta property="og:image" content={fullImageUrl} />
       
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:url" content={canonical} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={`${siteUrl}${image}`} />
+      <meta name="twitter:image" content={fullImageUrl} />
       
       {/* Additional SEO tags */}
       <meta name="robots" content="index, follow" />
       <meta name="googlebot" content="index, follow" />
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=5" />
+      <meta name="theme-color" content="#18181b" />
+      <meta name="author" content="CL" />
+      <meta name="mobile-web-app-capable" content="yes" />
+      <meta name="apple-mobile-web-app-capable" content="yes" />
     </Helmet>
   );
 };

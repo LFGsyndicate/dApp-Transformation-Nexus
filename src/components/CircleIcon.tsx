@@ -2,7 +2,7 @@
 import React from 'react';
 
 export type CircleIconName = 
-  'pink-purple' | 'purple-light' | 'purple-medium' | 'cream' | 
+  'purple-light' | 'purple-medium' | 'cream' | 
   'orange' | 'lavender' | 'pink' | 'olive' | 'blue-light' | 'mint' | 'green-light' | 'sage';
 
 type CircleIconProps = {
@@ -12,7 +12,6 @@ type CircleIconProps = {
 };
 
 const iconPaths: Record<CircleIconName, string> = {
-  'pink-purple': '/lovable-uploads/b44163f8-2a72-4112-b57b-a37d258b660d.png',
   'purple-light': '/lovable-uploads/045f3fb5-6787-4656-bcf1-70e53b120f5d.png',
   'purple-medium': '/lovable-uploads/54c127bf-6151-4419-be18-76128ef194ba.png',
   'cream': '/lovable-uploads/d198fef0-7b28-4461-a9f5-f7e45c4bf83d.png',
@@ -27,7 +26,11 @@ const iconPaths: Record<CircleIconName, string> = {
 };
 
 export const CircleIcon: React.FC<CircleIconProps> = ({ name, className = "", size = 24 }) => {
-  const iconPath = iconPaths[name];
+  // Get base path from environment
+  const basePath = import.meta.env.VITE_BASE_PATH || '/';
+  
+  // Use the base path to create the full path to the icon
+  const iconPath = `${basePath}${iconPaths[name].replace(/^\//, '')}`;
   
   return (
     <div 

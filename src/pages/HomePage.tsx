@@ -132,7 +132,7 @@ const HomePage = () => {
                 to="/technologies/crypto-utility"
               />
               <TechCard
-                title={t("Decentralized Autonomous Organizations", "Децентрализованные автономные организации")}
+                title={t("DAO", "DAO")}
                 description={t(
                   "DAOs represent a paradigm shift in organizational structure, enabling transparent, community-governed entities.",
                   "ДАО представляют собой парадигмальный сдвиг в организационной структуре, обеспечивая прозрачные, управляемые сообществом организации."
