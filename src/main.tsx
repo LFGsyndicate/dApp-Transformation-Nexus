@@ -109,14 +109,14 @@ document.head.appendChild(styleElement);
 // Create a manifest link
 const manifestLink = document.createElement('link');
 manifestLink.rel = 'manifest';
-manifestLink.href = '/manifest.json';
+manifestLink.href = import.meta.env.VITE_BASE_PATH ? `${import.meta.env.VITE_BASE_PATH}manifest.json` : '/manifest.json';
 document.head.appendChild(manifestLink);
 
 // Create a favicon link
 const favicon = document.createElement('link');
 favicon.rel = 'shortcut icon';
 favicon.type = 'image/x-icon';
-favicon.href = '/favicon.ico';
+favicon.href = import.meta.env.VITE_BASE_PATH ? `${import.meta.env.VITE_BASE_PATH}favicon.ico` : '/favicon.ico';
 document.head.appendChild(favicon);
 
 createRoot(document.getElementById("root")!).render(<App />);

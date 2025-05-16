@@ -3,28 +3,27 @@
 name: Deploy static content to Pages
 
 on:
-  # Запускается при push в ветку main (или вашу основную ветку)
+  # Runs on pushes to the main branch
   push:
-    branches: ["main"] # Замените на имя вашей основной ветки, если оно другое
+    branches: ["main"]
 
-  # Позволяет запускать этот рабочий процесс вручную из вкладки Actions
+  # Allows manual triggering from the Actions tab
   workflow_dispatch:
 
-# Устанавливает разрешения для GITHUB_TOKEN, чтобы разрешить развертывание на GitHub Pages
+# Sets permissions for GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Разрешает только одно одновременное развертывание, пропуская запуски,
-# стоящие в очереди между текущим и последним запущенным.
-# Однако НЕ отменяет текущие запуски, так как мы хотим, чтобы эти прод-развертывания завершились.
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However NOT cancelling in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Задача сборки
+  # Build job
   build:
     runs-on: ubuntu-latest
     steps:
@@ -34,38 +33,39 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
-          bun-version: latest # или укажите конкретную версию bun, если требуется
+          bun-version: latest
 
+      # Removing --frozen-lockfile to prevent issues with lockfile changes
       - name: Install dependencies
-        run: bun install --frozen-lockfile # Используем --frozen-lockfile для CI
+        run: bun install
         
-      # Явно устанавливаем terser для минификации
+      # Explicitly install terser for minification
       - name: Ensure terser is installed
         run: bun add terser@^5.24.0 --dev
 
       - name: Build project
         env:
-          NODE_ENV: production # Устанавливаем режим сборки
-          # Передаем имя репозитория как переменную окружения для Vite
-          # Убедитесь, что это ТОЧНОЕ имя вашего репозитория
+          NODE_ENV: production
+          # Pass the repository name as an environment variable for Vite
+          # Make sure this is the EXACT name of your repository
           VITE_REPO_NAME: dApp-Transformation-Nexus
-        run: bun run build # Убедитесь, что в package.json есть скрипт "build": "vite build"
+        run: bun run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Загрузить содержимое папки 'dist' (результат сборки Vite)
+          # Upload the dist directory (Vite build output)
           path: './dist'
 
-  # Задача развертывания
+  # Deployment job
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build # Эта задача зависит от успешного завершения задачи 'build'
+    needs: build # This job depends on the build job
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        # Артефакт будет автоматически получен из задачи 'build'
+        # The artifact will be automatically retrieved from the build job

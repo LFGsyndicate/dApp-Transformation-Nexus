@@ -1,22 +1,21 @@
-
 // vite.config.ts
 import { defineConfig, loadEnv } from 'vite';
-import react from '@vitejs/plugin-react-swc'; // или @vitejs/plugin-react, если вы используете его
+import react from '@vitejs/plugin-react-swc'; // or @vitejs/plugin-react, if you use it
 import path from 'path';
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => {
-  // Загружаем переменные окружения для текущего режима
-  // Третий параметр '' означает, что все переменные будут загружены, а не только те, что начинаются с VITE_
+  // Load environment variables for the current mode
+  // Third parameter '' means all variables will be loaded, not just those prefixed with VITE_
   const env = loadEnv(mode, process.cwd(), '');
 
-  // Получаем имя репозитория из переменной окружения VITE_REPO_NAME (установленной в deploy.yml)
-  // Если переменная не установлена (например, при локальной разработке), repoName будет пустой строкой.
+  // Get the repository name from the VITE_REPO_NAME environment variable (set in deploy.yml)
+  // If the variable is not set (e.g., during local development), repoName will be the default value
   const repoName = env.VITE_REPO_NAME || 'dApp-Transformation-Nexus';
 
-  // Определяем базовый URL для Vite.
-  // Если режим 'production' и repoName задан, то base будет '/<repoName>/'.
-  // В противном случае (локальная разработка) base будет '/'.
+  // Define the base URL for Vite.
+  // If mode is 'production' and repoName is set, then base will be '/<repoName>/'.
+  // Otherwise (for local development) base will be '/'.
   const viteBase = mode === 'production' && repoName ? `/${repoName}/` : '/';
 
   return {
@@ -29,22 +28,24 @@ export default defineConfig(({ mode }) => {
         '@': path.resolve(__dirname, './src'),
       },
     },
-    // Устанавливаем базовый URL для сборки
+    // Set base URL for the build
     base: viteBase,
-    // Определяем переменные окружения, которые будут доступны в клиентском коде
-    // через import.meta.env.VITE_BASE_PATH
+    // Define environment variables that will be available in client-side code
+    // through import.meta.env.VITE_BASE_PATH
     define: {
       'import.meta.env.VITE_BASE_PATH': JSON.stringify(viteBase)
     },
     server: {
-      host: '::', // Для доступности в локальной сети, если нужно
-      port: 8080, // Можете изменить на свой порт
+      host: '::',
+      port: 8080,
     },
     build: {
-      outDir: 'dist', // Папка для сборки (по умолчанию 'dist')
-      assetsDir: 'assets', // Папка для статических ресурсов (по умолчанию 'assets')
-      sourcemap: false, // Отключаем sourcemap в production для уменьшения размера сборки
-      // Оптимизируем сборку для лучшей производительности на мобильных устройствах
+      outDir: 'dist',
+      assetsDir: 'assets',
+      sourcemap: false, // Disable sourcemaps in production for smaller build size
+      minify: 'esbuild', // Use esbuild for minification
+      target: 'es2015',
+      // Optimize build for better performance
       rollupOptions: {
         output: {
           manualChunks: {
@@ -53,9 +54,6 @@ export default defineConfig(({ mode }) => {
           },
         },
       },
-      // Используем esbuild для минимизации, так как это работает стабильнее с современными версиями Vite
-      minify: 'esbuild',
-      target: 'es2015',
     },
   };
 });

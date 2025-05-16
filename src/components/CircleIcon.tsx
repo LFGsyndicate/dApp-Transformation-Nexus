@@ -29,8 +29,10 @@ export const CircleIcon: React.FC<CircleIconProps> = ({ name, className = "", si
   // Get base path from environment
   const basePath = import.meta.env.VITE_BASE_PATH || '/';
   
-  // Remove leading "/" from icon paths since basePath already has one
-  const iconPath = `${basePath}${iconPaths[name]}`;
+  // Handle path correctly for GitHub Pages
+  const iconPath = basePath.endsWith('/') 
+    ? `${basePath}${iconPaths[name]}`
+    : `${basePath}/${iconPaths[name]}`;
   
   return (
     <div 
