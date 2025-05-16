@@ -53,16 +53,9 @@ export default defineConfig(({ mode }) => {
           },
         },
       },
-      // Улучшаем сжатие для оптимизации загрузки
-      minify: 'terser',
-      terserOptions: {
-        compress: {
-          drop_console: true,
-          drop_debugger: true,
-        },
-      },
-      // Ограничиваем размер изображений для оптимальной загрузки
-      assetsInlineLimit: 4096, // 4kb
+      // Используем esbuild для минимизации, так как это работает стабильнее с современными версиями Vite
+      minify: 'esbuild',
+      target: 'es2015',
     },
   };
 });
