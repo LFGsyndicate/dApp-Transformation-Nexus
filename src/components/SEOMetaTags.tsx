@@ -13,7 +13,7 @@ interface SEOProps {
 }
 
 export const SEOMetaTags: React.FC<SEOProps> = ({
-  title = "DNT - 700+ Blockchain, DAO & AI Use Cases",
+  title = "DTN Research - 700+ Blockchain, DAO & AI Use Cases",
   description = "Explore 700+ real-world use cases of blockchain, smart contracts, DAOs, NFTs and AI across various industries with verified sources and research references.",
   keywords = "blockchain, smart contracts, DAO, NFT, AI, Web3, use cases, decentralized, crypto, technology, DeFi, token, metaverse, digital transformation",
   image = "/lovable-uploads/b44163f8-2a72-4112-b57b-a37d258b660d.png",
@@ -31,8 +31,8 @@ export const SEOMetaTags: React.FC<SEOProps> = ({
   const defaultSchema = {
     "@context": "https://schema.org",
     "@type": "ResearchProject",
-    "name": "Decentralized Transformation Nexus",
-    "alternateName": "DNT",
+    "name": "DTN Research",
+    "alternateName": "Decentralized Transformation Nexus",
     "url": siteUrl,
     "logo": `${siteUrl}${basePath}lovable-uploads/122c4587-2b9c-4360-9aea-2df1f25074ee.png`,
     "description": description,
@@ -60,7 +60,7 @@ export const SEOMetaTags: React.FC<SEOProps> = ({
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={fullImageUrl} />
-      <meta property="og:site_name" content="DNT Research" />
+      <meta property="og:site_name" content="DTN Research" />
       
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />

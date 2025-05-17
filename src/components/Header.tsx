@@ -30,7 +30,7 @@ export function Header() {
           className="mr-4 font-bold text-lg hover:text-primary transition-colors"
           onClick={scrollToTop}
         >
-          {t("DNT", "DNT")}
+          {t("DTN Research", "DTN Research")}
         </Link>
         <div className="ml-auto flex items-center gap-4">
           <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
