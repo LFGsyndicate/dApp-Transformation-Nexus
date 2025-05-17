@@ -1,7 +1,21 @@
+
+User-agent: *
+Allow: /
+
+# Allow all search engines to crawl
 User-agent: Googlebot
 Allow: /
 
 User-agent: Bingbot
+Allow: /
+
+User-agent: Yandexbot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: DuckDuckBot
 Allow: /
 
 User-agent: Twitterbot
@@ -10,5 +24,8 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
-Allow: /
+# Sitemap location
+# Sitemap: https://lfgsyndicate.github.io/dApp-Transformation-Nexus/sitemap.xml
+
+# Crawl-delay parameter
+Crawl-delay: 10
