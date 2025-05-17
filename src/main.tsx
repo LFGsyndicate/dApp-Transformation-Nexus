@@ -53,6 +53,35 @@ styleElement.textContent = `
     }
   }
   
+  /* Use Cases specific mobile optimizations */
+  @media (max-width: 768px) {
+    /* Enhance filter section on mobile */
+    .use-cases-filters {
+      position: sticky;
+      top: 4rem;
+      z-index: 20;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 0.5rem;
+      background-color: var(--background);
+      border: 1px solid var(--border);
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    
+    /* Improve use case cards on mobile */
+    .use-case-card {
+      height: auto !important;
+    }
+    
+    /* Better grid layout for filters on small screens */
+    .filter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.5rem;
+    }
+  }
+  
   /* SEO meta tag optimization */
   :root {
     color-scheme: light dark;

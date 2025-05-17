@@ -47,6 +47,7 @@ const UseCasesPage = () => {
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
   const [selectedTechnologies, setSelectedTechnologies] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showFilters, setShowFilters] = useState(false);
 
   // Get counts for industries and technologies
   const industryCounts = getIndustryCounts();
@@ -164,6 +165,11 @@ const UseCasesPage = () => {
     seoDescription = `Explore how ${selectedTechnologies[0]} technology is revolutionizing the ${selectedIndustries[0]} industry with practical examples and verified implementations.`;
   }
 
+  // Toggle filters on mobile
+  const toggleFilters = () => {
+    setShowFilters(!showFilters);
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
       <SEOMetaTags 
@@ -175,20 +181,20 @@ const UseCasesPage = () => {
       <Header />
       <main className="flex-1">
         {/* Hero section */}
-        <section className="bg-accent/60 py-12 relative overflow-hidden">
+        <section className="bg-accent/60 py-8 md:py-12 relative overflow-hidden">
           <div className="absolute inset-0 bg-grid-pattern opacity-50"></div>
           <div className="container-content relative z-10">
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-4xl font-bold tracking-tight mb-4">
+              <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 md:mb-4">
                 {t("Use Cases Catalog", "Каталог примеров использования")}
               </h1>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
                 {t(
                   `Explore ${useCases.length}+ comprehensive real-world applications of decentralized technologies and AI across various industries.`,
                   `Исчерпывающие примеры применения децентрализованных технологий и искусственного интеллекта в различных отраслях (${useCases.length}+ кейсов).`
                 )}
               </p>
-              <div className="relative max-w-md mx-auto mt-6">
+              <div className="relative max-w-md mx-auto mt-4 md:mt-6">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   type="search"
@@ -198,19 +204,30 @@ const UseCasesPage = () => {
                   onChange={handleSearch}
                 />
               </div>
-              <p className="mt-4 text-sm text-muted-foreground">
+              <p className="mt-3 md:mt-4 text-sm text-muted-foreground">
                 {filteredUseCases.length} {t("use cases found", "примеров использования найдено")}
               </p>
+              
+              {/* Mobile filter toggle button */}
+              <div className="mt-4 md:hidden">
+                <button 
+                  onClick={toggleFilters}
+                  className="flex items-center justify-center gap-1 px-4 py-2 text-sm font-medium border rounded-md bg-background"
+                >
+                  <Search className="h-4 w-4" />
+                  {showFilters ? t("Hide filters", "Скрыть фильтры") : t("Show filters", "Показать фильтры")}
+                </button>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Main content */}
-        <section className="py-12">
+        <section className="py-6 md:py-12">
           <div className="container-content">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-8">
               {/* Filters */}
-              <aside className="lg:col-span-1">
+              <aside className={`lg:col-span-1 ${showFilters ? 'block' : 'hidden'} md:block use-cases-filters`}>
                 <UseCaseFilters
                   searchTerm={searchTerm}
                   onSearch={handleSearch}
@@ -229,17 +246,19 @@ const UseCasesPage = () => {
               <section className="lg:col-span-3">
                 {filteredUseCases.length > 0 ? (
                   <>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                       {paginatedUseCases.map((useCase) => (
-                        <UseCaseCard key={useCase.id} useCase={useCase} />
+                        <div key={useCase.id} className="use-case-card">
+                          <UseCaseCard useCase={useCase} />
+                        </div>
                       ))}
                     </div>
                     
                     {/* Improved Pagination */}
                     {totalPages > 1 && (
-                      <Pagination className="mt-8">
-                        <PaginationContent>
-                          <PaginationItem>
+                      <Pagination className="mt-6 md:mt-8">
+                        <PaginationContent className="flex flex-wrap justify-center">
+                          <PaginationItem className="mx-1">
                             <PaginationPrevious 
                               onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                               className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
@@ -247,7 +266,7 @@ const UseCasesPage = () => {
                           </PaginationItem>
                           
                           {getPageNumbers().map((page, index) => (
-                            <PaginationItem key={index}>
+                            <PaginationItem key={index} className="mx-1">
                               {page === "ellipsis" ? (
                                 <PaginationEllipsis />
                               ) : (
@@ -261,7 +280,7 @@ const UseCasesPage = () => {
                             </PaginationItem>
                           ))}
                           
-                          <PaginationItem>
+                          <PaginationItem className="mx-1">
                             <PaginationNext 
                               onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                               className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
@@ -272,12 +291,12 @@ const UseCasesPage = () => {
                     )}
                   </>
                 ) : (
-                  <div className="text-center py-16 bg-accent/30 rounded-lg">
-                    <Search className="mx-auto h-12 w-12 text-muted-foreground mb-4 opacity-50" />
-                    <h3 className="text-xl font-medium mb-2">
+                  <div className="text-center py-12 md:py-16 bg-accent/30 rounded-lg">
+                    <Search className="mx-auto h-8 w-8 md:h-12 md:w-12 text-muted-foreground mb-3 md:mb-4 opacity-50" />
+                    <h3 className="text-lg md:text-xl font-medium mb-2">
                       {t("No results found", "Результаты не найдены")}
                     </h3>
-                    <p className="text-muted-foreground max-w-md mx-auto">
+                    <p className="text-muted-foreground max-w-md mx-auto text-sm md:text-base">
                       {t(
                         "Try adjusting your search or filter criteria to find what you're looking for.",
                         "Попробуйте изменить критерии поиска или фильтрации, чтобы найти то, что вы ищете."

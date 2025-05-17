@@ -40,7 +40,6 @@ export function Header() {
             </Link>
           </nav>
           <div className="flex items-center gap-2">
-            <ModeToggle />
             <LanguageToggle />
           </div>
           <Button variant="outline" size="sm" asChild>
@@ -48,6 +47,7 @@ export function Header() {
               {t("Order Project", "Заказать проект")}
             </Link>
           </Button>
+          <ModeToggle />
           <Button
             variant="ghost"
             size="icon"
